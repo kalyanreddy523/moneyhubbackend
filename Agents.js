@@ -7,15 +7,13 @@ const { v4: uuidv4 } = require('uuid');
 
 const app = express.Router();
 
-// Middleware to parse JSON request bodies
-app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+
 
 // MySQL database connection
 const db = mysql.createPool({
   host: 'localhost',
-  user: 'root',
-  password: 'root',
+  user: 'crmuser',
+  password: 'Moneymitra@123',
   database: 'loans'
 });
 

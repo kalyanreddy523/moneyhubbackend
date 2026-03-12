@@ -5,9 +5,9 @@ const mysql = require('mysql2/promise');
 // MySQL connection pool (configure as needed)
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'loans',
+  user: 'crmuser',
+  password: 'Moneymitra@123',
+  database: 'loans'
 });
 
 // Create (Insert) a new payout

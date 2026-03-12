@@ -5,9 +5,9 @@ const app = express.Router();
 
 // MySQL database connection pool
 const pool = mysql.createPool({
-  host: 'localhost',      // replace with your DB host
-  user: 'root',      // replace with your DB user
-  password: 'root',  // replace with your DB password
+  host: 'localhost',
+  user: 'crmuser',
+  password: 'Moneymitra@123',
   database: 'loans',      // your database name
   waitForConnections: true,
   connectionLimit: 10,

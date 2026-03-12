@@ -5,9 +5,9 @@ const mysql = require('mysql2/promise');
 // MySQL connection pool
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'loans',
+  user: 'crmuser',
+  password: 'Moneymitra@123',
+  database: 'loans'
 });
 
 // Create a product entry

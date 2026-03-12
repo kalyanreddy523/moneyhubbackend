@@ -6,10 +6,10 @@ const mysql = require('mysql2/promise');
 
 // Create a pool or connection for your DB
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'loans'
+  host: 'localhost',
+  user: 'crmuser',
+  password: 'Moneymitra@123',
+  database: 'loans'
 });
 
 // CREATE a company
