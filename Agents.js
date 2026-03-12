@@ -3,10 +3,9 @@ const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
-const router=express.Router();
 
 
-const app = express();
+const app = express.Router();
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
@@ -16,7 +15,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 const db = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: 'root',
   database: 'loans'
 });
 
@@ -130,8 +129,4 @@ app.delete('/agents/:id', (req, res) => {
   });
 });
 
-// Start server
-const PORT = process.env.PORT || 9000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+module.exports=app;

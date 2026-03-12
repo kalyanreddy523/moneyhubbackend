@@ -8,6 +8,8 @@ const Comission=require('./Commision');
 const Products=require('./Products');
 const Payouts=require('./Payout');
 const ManagerRoute=require('./ManagerRoutes.js');
+const Leads=require('./Leads.js');
+const Agents=require('./Agents.js');
 
 const app = express();
 app.use(bodyParser.json());
@@ -20,8 +22,10 @@ app.use('/api',Comission);
 app.use('/api',Products);
 app.use('/api',Payouts);
 app.use('/manager',ManagerRoute);
+app.use('/',Leads);
+app.use('/',Agents);
 
-const port = 8080;
+const port = 8000;
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });

@@ -1,16 +1,13 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
-const app = express();
-const cors=require('cors');
+const app = express.Router();
 
-app.use(express.json());
-app.use(cors('http://localhost:3000'));
 
 // MySQL database connection pool
 const pool = mysql.createPool({
   host: 'localhost',      // replace with your DB host
   user: 'root',      // replace with your DB user
-  password: '',  // replace with your DB password
+  password: 'root',  // replace with your DB password
   database: 'loans',      // your database name
   waitForConnections: true,
   connectionLimit: 10,
@@ -222,8 +219,4 @@ app.delete('/leads/:id', async (req, res) => {
   }
 });
 
-// Start server
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+module.exports=app;
