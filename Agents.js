@@ -11,7 +11,7 @@ const app = express.Router();
 
 // MySQL database connection
 const db = mysql.createPool({
-  host: 'localhost',
+  host: '187.127.129.44',
   user: 'crmuser',
   password: 'Moneymitra@123',
   database: 'loans'
@@ -28,21 +28,40 @@ function excludePassword(agent) {
 
 // Create a new agent
 app.post('/agents', async (req, res) => {
-  const { Name, Email, Password, Mobile, Location, Role, Experience, Motivation } = req.body;
+  const { Name, Email, Password, Mobile, Location, Role, Experience, Motivation, managerid } = req.body;
+
   if (!Password) return res.status(400).json({ error: 'Password is required' });
+
   try {
     const hash = await bcrypt.hash(Password, 10);
-    const agentId = uuidv4(); // Generates a unique alphanumeric ID
-    const query = `INSERT INTO Agents (id, Name, Email, Password, Mobile, Location, Role, Experience, Motivation)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const agentId = uuidv4(); // alphanumeric ID
+
+    const query = `
+      INSERT INTO Agents 
+      (id, Name, Email, Password, Mobile, Location, Role, Experience, Motivation, managerid)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
     db.query(
       query,
-      [agentId, Name, Email, hash, Mobile, Location, Role, Experience, Motivation],
+      [agentId, Name, Email, hash, Mobile, Location, Role, Experience, Motivation, managerid],
       (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-        res.json({ id: agentId, Name, Email, Mobile, Location, Role, Experience, Motivation });
+
+        res.json({
+          id: agentId,
+          Name,
+          Email,
+          Mobile,
+          Location,
+          Role,
+          Experience,
+          Motivation,
+          managerid
+        });
       }
     );
+
   } catch (err) {
     res.status(500).json({ error: 'Password hashing failed' });
   }

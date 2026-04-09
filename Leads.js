@@ -5,7 +5,7 @@ const app = express.Router();
 
 // MySQL database connection pool
 const pool = mysql.createPool({
-  host: 'localhost',
+  host: '187.127.129.44',
   user: 'crmuser',
   password: 'Moneymitra@123',
   database: 'loans',      // your database name
@@ -38,7 +38,7 @@ app.post('/leads/:id/update-assignedto', async (req, res) => {
   const leadId = req.params.id;
   try {
     // Example: Update assignedto column for a specific Lead or batch condition
-    const sql = 'UPDATE Leads SET assignedto = ? WHERE ID= ?'; 
+    const sql = 'UPDATE leads SET assignedto = ? WHERE ID= ?'; 
     // Replace some_condition to target specific rows as needed
     await pool.query(sql, [assignedto, leadId]);
 
@@ -69,6 +69,33 @@ app.get('/leads', async (req, res) => {
     const [rows] = await pool.query('SELECT * FROM leads');
     res.json(rows);
   } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/managers/leads', async (req, res) => {
+  console.log("🔥 /manager/leads HIT");
+
+  try {
+    const { managerid } = req.query;
+    console.log("Manager ID:", managerid);
+
+    if (!managerid) {
+      return res.status(400).json({ error: 'managerid is required' });
+    }
+
+    const [rows] = await pool.query(`
+      SELECT l.*, a.Name AS agentName
+      FROM leads l
+      JOIN Agents a ON l.SubmittedBy = a.id
+      WHERE a.managerid = ?
+    `, [managerid]);
+
+    console.log("Rows found:", rows.length);
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 });

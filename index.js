@@ -13,7 +13,7 @@ const Agents=require('./Agents.js');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'https://partymer.com' }));
 
 app.use('/api', companyRoutes); // All routes will be prefixed with /api
 app.use('/partner', Partnerroutes);
